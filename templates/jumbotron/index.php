@@ -12,7 +12,7 @@
 
     <!-- Bootstrap core CSS -->
     <!--link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"-->
-    <link href="/oger/templates/jumbotron/css/bootstrap.css" rel="stylesheet" />
+    <link href="/templates/jumbotron/css/bootstrap.css" rel="stylesheet" />
 
     <style>
         .bd-placeholder-img {
@@ -31,7 +31,7 @@
         }
     </style>
     <!-- Custom styles for this template -->
-    <link href="/oger/templates/jumbotron/css/jumbotron.css" rel="stylesheet">
+    <link href="/templates/jumbotron/css/jumbotron.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">

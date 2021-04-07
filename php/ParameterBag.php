@@ -22,6 +22,7 @@ class ParameterBag
      */
     public function setMultiple($params)
     {
+        if (!$params) return;
         foreach ($params as $k => $v) {
             $this->arrParams[$k] = $v;
         }

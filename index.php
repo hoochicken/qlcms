@@ -5,7 +5,8 @@ require_once 'php/Routing.php';
 
 $objRouter = new AltoRouter();
 
-$objMatch = new ParameterBag(Routing::getMatchStatic($objRouter, '/oger'));
+// $objMatch = new ParameterBag(Routing::getMatchStatic($objRouter, '/oger'));
+$objMatch = new ParameterBag(Routing::getMatchStatic($objRouter));
 $strName = $objMatch->getString('name', '');
 $arrTarget = $objMatch->getArray('target', []);
 $strController = ParameterBag::getElementString($arrTarget, 'c', '');
