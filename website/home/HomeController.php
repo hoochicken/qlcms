@@ -1,16 +1,17 @@
 <?php
 
 
-class HomeController
+class HomeController implements \php\ContentControllerInterface\ContentControllerInterface
 {
-    private $objView;
-    private $objRouter;
-    private $content = [];
+    private $view;
+    private $router;
+    private array $content = [];
+    private string $main;
 
-    public function __construct(View $objView, AltoRouter $objRouter)
+    public function __construct(View $view, AltoRouter $router)
     {
-        $this->objView = $objView;
-        $this->objRouter = $objRouter;
+        $this->view = $view;
+        $this->router = $router;
     }
 
     /**
@@ -24,18 +25,18 @@ class HomeController
 
         // load riddles by csv
         $csv = file_get_contents('data/latin.csv');
-        $objCsv = new Csv($csv);
-        $arrVoc = $objCsv->getRowRandom();
+        $csv = new Csv($csv);
+        $arrVoc = $csv->getRowRandom();
 
         // prepare data to display, and to store in session later on
-        $objRiddle = new Riddle($arrVoc);
-        $strRiddleNew = $objRiddle->getRiddle();
+        $riddle = new Riddle($arrVoc);
+        $strRiddleNew = $riddle->getRiddle();
 
-        $strTranslationNew = $objRiddle->getTranslation();
-        $strSolutionNew = $objRiddle->getSolution();
+        $strTranslationNew = $riddle->getTranslation();
+        $strSolutionNew = $riddle->getSolution();
         $riddleNew = [
             'Riddle' => $strRiddleNew,
-            'solution' => $objRiddle->getSolution(),
+            'solution' => $riddle->getSolution(),
         ];
 
 
@@ -56,7 +57,7 @@ class HomeController
         $arrDiff2 = array_diff($arrSolution, $arrUserInput);
         $arrDiff = array_unique(array_merge($arrDiff1, $arrDiff2));
 
-        $arrCorrect = array_intersect($arrUserInput, $arrSolution);
+        $correct = array_intersect($arrUserInput, $arrSolution);
         $strMsg = '';
 
         $strRiddleOld = $arrSolutionRaw['Riddle'] ?? '';
@@ -65,9 +66,9 @@ class HomeController
         $_SESSION['countCorrect'] = $numCountCorrect;
         $_SESSION['countFalse'] = $numCountFalse;
 
-        $strFormAction = $this->objRouter->generate('riddle_up', []);
-        //$strFormAction = $this->objRouter->generate('riddle_up', array('id' => 10, 'action' => 'update'));
-        $arrParams = [
+        $strFormAction = $this->router->generate('riddle_up', []);
+        //$strFormAction = $this->router->generate('riddle_up', array('id' => 10, 'action' => 'update'));
+        $params = [
             'strRiddleOld' => $strRiddleOld,
             'strUserInput' => $strUserInput,
             'arrDiff' => $arrDiff,
@@ -78,26 +79,21 @@ class HomeController
             'numCountCorrect' => $numCountCorrect,
             'strFormAction' => $strFormAction,
         ];
-        $this->content['main'] = $this->objView->render(__DIR__ . '/html/index.php', $arrParams);
+        $this->content['main'] = $this->view->render(__DIR__ . '/html/index.php', $params);
+        $this->main = $this->view->render(__DIR__ . '/html/index.php', $params);
 
 
 
         //$this->content['strRiddleNew'] = $this->objModel->getRiddleRand();
     }
 
-    /**
-     * @return array
-     */
     public function getContent(): array
     {
         return $this->content;
     }
 
-    /**
-     * @return array
-     */
-    public function getMain(): array
+    public function getMain(): string
     {
-        return $this->content;
+        return $this->main;
     }
 }

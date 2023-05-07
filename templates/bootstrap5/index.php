@@ -1,4 +1,6 @@
-
+<?php
+/** @var php\ContentControllerInterface\ContentControllerInterface $page */
+?>
 <!doctype html>
 <html lang="en" class="h-100">
 <head>
@@ -52,7 +54,7 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
     <div class="container">
-        <?php echo $main ?? ''; ?>
+        <?php echo $page->getMain(); ?>
     </div>
 </main>
 
@@ -63,7 +65,7 @@
 </footer>
 
 
-<script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="/templates/bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
 </body>

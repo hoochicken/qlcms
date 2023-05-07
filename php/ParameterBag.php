@@ -4,27 +4,20 @@
 class ParameterBag
 {
     /** @var array  */
-    private $arrParams = [];
+    private $params = [];
     /** @var null  */
-    private static $objParameterBag = null;
+    private static $parameterBag = null;
 
-    /**
-     * ParameterBag constructor.
-     * @param $params
-     */
-    public function __construct($params = [])
+    public function __construct(array $params = [])
     {
         $this->setMultiple($params);
     }
 
-    /**
-     * @param $params
-     */
     public function setMultiple($params)
     {
         if (!$params) return;
         foreach ($params as $k => $v) {
-            $this->arrParams[$k] = $v;
+            $this->params[$k] = $v;
         }
     }
 
@@ -35,28 +28,18 @@ class ParameterBag
      */
     public function get($key, $default = null)
     {
-        return $this->arrParams[$key] ?? $default;
+        return $this->params[$key] ?? $default;
     }
 
-    /**
-     * @param $key
-     * @param bool $default
-     * @return mixed|null
-     */
-    public function getBool($key, $default = null): ? bool
+        public function getBool($key, ?bool $default = null): ? bool
     {
-        $return = $this->arrParams[$key] ?? $default;
+        $return = $this->params[$key] ?? $default;
         return (bool) $return;
     }
 
-    /**
-     * @param $key
-     * @param bool $default
-     * @return mixed|null
-     */
-    public function getString($key, $default = null): ? string
+    public function getString($key, ?string $default = null): ? string
     {
-        $return = $this->arrParams[$key] ?? $default;
+        $return = $this->params[$key] ?? $default;
         return (string) $return;
     }
 
@@ -65,9 +48,9 @@ class ParameterBag
      * @param bool $default
      * @return mixed|null
      */
-    public function getInt($key, $default = null): ? int
+    public function getInt($key, ?int $default = null): ? int
     {
-        $return = $this->arrParams[$key] ?? $default;
+        $return = $this->params[$key] ?? $default;
         return (int) $return;
     }
 
@@ -76,9 +59,9 @@ class ParameterBag
      * @param bool $default
      * @return mixed|null
      */
-    public function getArray($key, $default = null): ? array
+    public function getArray($key, ?array$default = null): ? array
     {
-        $return = $this->arrParams[$key] ?? $default;
+        $return = $this->params[$key] ?? $default;
         return (array) $return;
     }
 
@@ -87,9 +70,9 @@ class ParameterBag
      * @param bool $default
      * @return mixed|null
      */
-    public function getIntVal($key, $default = null): ? int
+    public function getIntVal($key, ?int$default = null): ? int
     {
-        $return = intval($this->arrParams[$key] ?? $default);
+        $return = intval($this->params[$key] ?? $default);
         return (int) $return;
     }
 
@@ -100,7 +83,7 @@ class ParameterBag
      */
     public function set($key, $value)
     {
-        $this->arrParams[$key] = $value;
+        $this->params[$key] = $value;
     }
 
     /**
@@ -110,7 +93,7 @@ class ParameterBag
      */
     public function setBool($key, $value)
     {
-        $this->arrParams[$key] = (bool) $value;
+        $this->params[$key] = (bool) $value;
     }
 
     /**
@@ -120,7 +103,7 @@ class ParameterBag
      */
     public function setString($key, $value)
     {
-        $this->arrParams[$key] = (string) $value;
+        $this->params[$key] = (string) $value;
     }
 
     /**
@@ -130,7 +113,7 @@ class ParameterBag
      */
     public function setInt($key, $value)
     {
-        $this->arrParams[$key] = (int) $value;
+        $this->params[$key] = (int) $value;
     }
 
     /**
@@ -140,7 +123,7 @@ class ParameterBag
      */
     public function setArray($key, $value)
     {
-        $this->arrParams[$key] = (array) $value;
+        $this->params[$key] = (array) $value;
     }
 
     /**
@@ -149,10 +132,10 @@ class ParameterBag
      */
     private static function getInstance($params = [])
     {
-        if (null === self::$objParameterBag) {
-            self::$objParameterBag = new ParameterBag($params);
+        if (null === self::$parameterBag) {
+            self::$parameterBag = new ParameterBag($params);
         }
-        return self::$objParameterBag;
+        return self::$parameterBag;
     }
 
     /**

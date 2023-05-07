@@ -4,17 +4,17 @@ class Routing
     /**
      * @var AltoRouter
      */
-    private $objRouter;
+    private AltoRouter $router;
 
     /**
-     * @param AltoRouter $objRouter
+     * @param AltoRouter $router
      * @param string $strBasePath
      */
-    public function __construct(AltoRouter $objRouter, string $strBasePath = '')
+    public function __construct(AltoRouter $router, string $strBasePath = '')
     {
         // initiate router, and build routes
-        $this->setRouter($objRouter);
-        $this->objRouter->setBasePath($strBasePath);
+        $this->setRouter($router);
+        $this->router->setBasePath($strBasePath);
         $this->buildRoutes();
     }
 
@@ -23,19 +23,19 @@ class Routing
      */
     public function getMatch()
     {
-        return $this->objRouter->match();
+        return $this->router->match();
     }
 
     /**
-     * @param AltoRouter $objRouter
+     * @param AltoRouter $router
      * @param string $strBasePath
      * @return array
      */
-    public static function getMatchStatic(AltoRouter $objRouter, string $strBasePath = '')
+    public static function getMatchStatic(AltoRouter $router, string $strBasePath = '')
     {
-        $objRouting = new Routing($objRouter, $strBasePath);
-        //var_dump($objRouting->getMatch());die;
-        return $objRouting->getMatch();
+        $routing = new Routing($router, $strBasePath);
+        //var_dump($routing->getMatch());die;
+        return $routing->getMatch();
     }
 
     /**
@@ -43,26 +43,26 @@ class Routing
      */
     private function buildRoutes()
     {
-        //$this->objRouter->map('GET|POST','/', 'homes#indsex', 'hosme');
-        //$this->objRouter->map('GET','/', 'home#index', 'home');
-        //$this->objRouter->map('GET','/', 'home#index', 'home');
-        $this->objRouter->map('GET','/', ['c' => 'home', 'a' => 'displayAction'], 'home');
-        $this->objRouter->map('POST','/', ['c' => 'home', 'a' => 'displayAction'], 'riddle_up');
-        //echo '<pre>'; print_r($this->objRouter); print_r($_POST);die;
-        $this->objRouter->map('POST','/users/[i:id]/[delete|update:action]', 'usersController#doAction', 'users_do');
-        //$this->objRouter->map('GET','/', ['c' => 'UserController', 'a' => 'ListAction']);
-        $this->objRouter->map('GET','/users/', array('c' => 'UserController', 'a' => 'ListAction'));
-        //$this->objRouter->map('GET','/home', 'home#indegx', ['c' => 'home', 'a' => 'displayAction']);
-        $this->objRouter->map('GET','/test', 'home#index', 'test');
-        $this->objRouter->map('GET','/users/[i:id]', 'users#show', 'users_show');
+        //$this->router->map('GET|POST','/', 'homes#indsex', 'hosme');
+        //$this->router->map('GET','/', 'home#index', 'home');
+        //$this->router->map('GET','/', 'home#index', 'home');
+        $this->router->map('GET','/', ['c' => 'home', 'a' => 'displayAction'], 'home');
+        $this->router->map('POST','/', ['c' => 'home', 'a' => 'displayAction'], 'riddle_up');
+        //echo '<pre>'; print_r($this->router); print_r($_POST);die;
+        $this->router->map('POST','/users/[i:id]/[delete|update:action]', 'usersController#doAction', 'users_do');
+        //$this->router->map('GET','/', ['c' => 'UserController', 'a' => 'ListAction']);
+        $this->router->map('GET','/users/', array('c' => 'UserController', 'a' => 'ListAction'));
+        //$this->router->map('GET','/home', 'home#indegx', ['c' => 'home', 'a' => 'displayAction']);
+        $this->router->map('GET','/test', 'home#index', 'test');
+        $this->router->map('GET','/users/[i:id]', 'users#show', 'users_show');
     }
 
     /**
-     * @param AltoRouter $objRouter
+     * @param AltoRouter $router
      */
-    public function setRouter(AltoRouter $objRouter)
+    public function setRouter(AltoRouter $router)
     {
-        $this->objRouter = $objRouter;
+        $this->router = $router;
     }
 
     /**
@@ -70,6 +70,6 @@ class Routing
      */
     public function getRouter(): AltoRouter
     {
-        return $this->objRouter;
+        return $this->router;
     }
 }
