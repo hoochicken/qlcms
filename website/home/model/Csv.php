@@ -1,48 +1,48 @@
 <?php
 class Csv
 {
-    private $strCsv = '';
-    private $arrRowAllRaw = [];
-    private $arrRowAll = [];
-    private $strDelimiter = '';
-    private $strRowDelimiter = "\n";
+    private $csv = '';
+    private $rowAllRaw = [];
+    private $rowAll = [];
+    private $delimiter = '';
+    private $rowDelimiter = "\n";
 
     /**
      * Vocabulary constructor.
-     * @param $strCsv
-     * @param $strDelimiter
+     * @param $csv
+     * @param $delimiter
      */
-    public function __construct($strCsv, $strDelimiter = ',')
+    public function __construct($csv, $delimiter = ',')
     {
-        $this->setDelimiter($strDelimiter);
-        $this->setCsv($strCsv);
+        $this->setDelimiter($delimiter);
+        $this->setCsv($csv);
     }
 
     /**
-     * @param $strDelimiter
+     * @param $delimiter
      */
-    public function setDelimiter(string $strDelimiter)
+    public function setDelimiter(string $delimiter)
     {
-        $this->strDelimiter = $strDelimiter;
+        $this->delimiter = $delimiter;
     }
 
     /**
-     * @param string $strRowDelimiter
+     * @param string $rowDelimiter
      */
-    public function setRowDelimiter(string $strRowDelimiter)
+    public function setRowDelimiter(string $rowDelimiter)
     {
-        $this->strRowDelimiter = $strRowDelimiter;
+        $this->rowDelimiter = $rowDelimiter;
     }
 
     /**
-     * @param $strCsv
+     * @param $csv
      */
-    public function setCsv($strCsv)
+    public function setCsv($csv)
     {
-        $this->strCsv = $strCsv;
-        $this->arrRowAllRaw = explode($this->strRowDelimiter, $strCsv);
-        foreach($this->arrRowAllRaw as $strRow) {
-            $this->arrRowAll[] = str_getcsv($strRow, $this->strDelimiter);
+        $this->csv = $csv;
+        $this->rowAllRaw = explode($this->rowDelimiter, $csv);
+        foreach($this->rowAllRaw as $strRow) {
+            $this->rowAll[] = str_getcsv($strRow, $this->delimiter);
         }
     }
 
@@ -51,9 +51,9 @@ class Csv
      */
     public function getRowRandom(): array
     {
-        $numKeyRandom = array_rand($this->arrRowAll);
-        $arrRow = $this->getRowByKey($numKeyRandom);
-        return $arrRow;
+        $numKeyRandom = array_rand($this->rowAll);
+        $row = $this->getRowByKey($numKeyRandom);
+        return $row;
     }
 
     /**
@@ -61,7 +61,7 @@ class Csv
      */
     public function getAll(): array
     {
-        return $this->arrRowAll;
+        return $this->rowAll;
     }
 
     /**
@@ -70,6 +70,6 @@ class Csv
      */
     public function getRowByKey($numKey): array
     {
-        return $this->arrRowAll[$numKey] ?? [];
+        return $this->rowAll[$numKey] ?? [];
     }
 }

@@ -3,19 +3,14 @@
 
 class View
 {
-    /**
-     * @param $strFile
-     * @param $arrParams
-     * @return false|string
-     */
-    public function render(string $strFile, array $arrParams = []): string
+    public function render(string $file, array $params = []): string
     {
-        if (!file_exists($strFile)) {
+        if (!file_exists($file)) {
             return '';
         }
-        extract($arrParams);
+        extract($params);
         ob_start();
-        require $strFile;
+        require $file;
         return ob_get_clean();
     }
 }

@@ -77,7 +77,7 @@
     </div>
 
     <div class="container">
-        <p><?php echo $strMain ?? ''; ?></p>
+        <p><?php echo $main ?? ''; ?></p>
         <!-- Example row of columns -->
 
         <hr>

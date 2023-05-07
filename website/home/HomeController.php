@@ -5,7 +5,7 @@ class HomeController
 {
     private $objView;
     private $objRouter;
-    private $arrContent = [];
+    private $content = [];
 
     public function __construct(View $objView, AltoRouter $objRouter)
     {
@@ -23,8 +23,8 @@ class HomeController
         require_once __DIR__ . '/../../php/Riddle.php';
 
         // load riddles by csv
-        $strCsv = file_get_contents('data/latin.csv');
-        $objCsv = new Csv($strCsv);
+        $csv = file_get_contents('data/latin.csv');
+        $objCsv = new Csv($csv);
         $arrVoc = $objCsv->getRowRandom();
 
         // prepare data to display, and to store in session later on
@@ -33,7 +33,7 @@ class HomeController
 
         $strTranslationNew = $objRiddle->getTranslation();
         $strSolutionNew = $objRiddle->getSolution();
-        $arrRiddleNew = [
+        $riddleNew = [
             'Riddle' => $strRiddleNew,
             'solution' => $objRiddle->getSolution(),
         ];
@@ -61,7 +61,7 @@ class HomeController
 
         $strRiddleOld = $arrSolutionRaw['Riddle'] ?? '';
 
-        $_SESSION['Riddle'] = $arrRiddleNew;
+        $_SESSION['Riddle'] = $riddleNew;
         $_SESSION['countCorrect'] = $numCountCorrect;
         $_SESSION['countFalse'] = $numCountFalse;
 
@@ -78,11 +78,11 @@ class HomeController
             'numCountCorrect' => $numCountCorrect,
             'strFormAction' => $strFormAction,
         ];
-        $this->arrContent['strMain'] = $this->objView->render(__DIR__ . '/html/index.php', $arrParams);
+        $this->content['main'] = $this->objView->render(__DIR__ . '/html/index.php', $arrParams);
 
 
 
-        //$this->arrContent['strRiddleNew'] = $this->objModel->getRiddleRand();
+        //$this->content['strRiddleNew'] = $this->objModel->getRiddleRand();
     }
 
     /**
@@ -90,6 +90,14 @@ class HomeController
      */
     public function getContent(): array
     {
-        return $this->arrContent;
+        return $this->content;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMain(): array
+    {
+        return $this->content;
     }
 }
